@@ -1,157 +1,87 @@
 {
-  "description": "30 production-ready Agent Skills for Claude Code, Codex, Cursor, Gemini CLI and OpenCode.",
+  "description": "16 modular software-engineering Agent Skills for project discovery, architecture, development, testing, security and documentation.",
   "license": "MIT",
   "name": "ai-agent-skills",
   "skills": [
     {
-      "description": "Use when an agent needs persistent memory across sessions, including capturing decisions and facts, compressing long notes, indexing and retrieving relevant memory at session start, deciding what to remember versus forget, and keeping a MEMORY.md file private and free of secrets.",
-      "name": "agent-memory",
-      "path": "skills/agent-memory"
+      "description": "Select and document software architecture, module boundaries and design patterns based on project requirements and quality attributes. Use when designing a new system or restructuring an existing one.",
+      "name": "architecture-selector",
+      "path": "skills/architecture-selector"
     },
     {
-      "description": "Use when the user asks to test, debug, verify, or document a REST API. It guides the agent to probe health and core endpoints with curl, check authentication and error cases, respect rate limits, validate responses against the API contract, and save a reproducible test script so the same checks can be re-run later.",
-      "name": "api-tester",
-      "path": "skills/api-tester"
+      "description": "Perform rigorous code reviews and security assessments covering correctness, architecture, authorization, data integrity, vulnerabilities, performance and maintainability. Use before merging or releasing changes.",
+      "name": "code-review-security",
+      "path": "skills/code-review-security"
     },
     {
-      "description": "Use when preparing an app for App Store or Google Play review, fixing a store rejection, writing a privacy policy or privacy manifest, choosing in-app purchase or payment flows, or auditing metadata, screenshots, and permissions before submitting a build.",
-      "name": "app-store-compliance",
-      "path": "skills/app-store-compliance"
+      "description": "Design, implement, migrate and optimize relational, document and cache data systems, including PostgreSQL, MongoDB, Redis, Prisma, Drizzle and SQL tooling.",
+      "name": "database-engineering",
+      "path": "skills/database-engineering"
     },
     {
-      "description": "Use when the user asks for Bangla writing, translation into Bangla, Bangla headlines, social media posts, scripts, or captions, including converting Banglish (Roman Bangla) to Bangla script and choosing formal versus casual register.",
-      "name": "bangla-content",
-      "path": "skills/bangla-content"
+      "description": "Design, build, secure, test and operate C#/.NET applications, including ASP.NET Core APIs, MVC, Blazor, EF Core, authentication, authorization, background services and observability. Use for new or existing .NET projects.",
+      "name": "dotnet-development",
+      "path": "skills/dotnet-development"
     },
     {
-      "description": "Use when training a small Bangla language model from scratch in PyTorch, including building a Bangla BPE tokenizer, pretraining a transformer, running supervised fine-tuning or LoRA, evaluating loss and perplexity, and producing a tiny CPU-runnable demo model.",
-      "name": "bangla-llm-train",
-      "path": "skills/bangla-llm-train"
+      "description": "Build secure, maintainable Electron desktop applications with safe process boundaries, IPC, packaging, auto-update strategy and cross-platform testing.",
+      "name": "electron-development",
+      "path": "skills/electron-development"
     },
     {
-      "description": "Use when automating a browser with an agent, filling forms, clicking through a web flow, scraping a page that needs JavaScript, taking screenshots to verify a page, or testing a web app end to end with Playwright.",
-      "name": "browser-automation",
-      "path": "skills/browser-automation"
+      "description": "Plan, build, test and ship maintainable Flutter applications for mobile, web or desktop with appropriate state management, navigation, data and platform integration.",
+      "name": "flutter-development",
+      "path": "skills/flutter-development"
     },
     {
-      "description": "Use when hunting security bugs in a codebase, API, or web application, including OWASP Top 10 issues, authentication and authorization flaws, injection, SSRF, IDOR, and leaked secrets, and when a triaged finding with severity, proof-of-concept, and a fix suggestion is needed.",
-      "name": "bug-hunter",
-      "path": "skills/bug-hunter"
+      "description": "Design and implement reliable Go APIs, workers and services with idiomatic packages, concurrency, persistence, testing and observability.",
+      "name": "go-backend-development",
+      "path": "skills/go-backend-development"
     },
     {
-      "description": "Use when reviewing a pull request, diff, or codebase for correctness, security, performance, and readability, and when actionable review comments with severity labels and concrete fixes are needed.",
-      "name": "code-reviewer",
-      "path": "skills/code-reviewer"
+      "description": "Build, secure, test and deploy Laravel applications using PHP, Eloquent, queues, caching, authentication, authorization, APIs and the Laravel ecosystem. Use for new or existing Laravel projects.",
+      "name": "laravel-development",
+      "path": "skills/laravel-development"
     },
     {
-      "description": "Use when deploying a web app without paying for hosting, choosing between Vercel, Cloudflare Pages, GitHub Pages, and Netlify, adding a serverless API or environment variables to a free deployment, connecting a custom domain, or debugging a failed free-tier deploy.",
-      "name": "deploy-free",
-      "path": "skills/deploy-free"
+      "description": "Design, implement, test and review React and Node.js applications using MERN, PERN, Express, NestJS, Fastify, Hono and related TypeScript tooling. Use for JavaScript or TypeScript full-stack projects.",
+      "name": "mern-pern-development",
+      "path": "skills/mern-pern-development"
     },
     {
-      "description": "Use when a user asks for a diagram, chart, or visual explanation of a system, process, database, or flow, including Mermaid flowcharts, sequence diagrams, ER diagrams, state diagrams, and architecture diagrams, and when an existing diagram is cluttered, unreadable, or hard to follow.",
-      "name": "diagram-design",
-      "path": "skills/diagram-design"
+      "description": "Build, optimize, secure and deploy production Next.js applications, including App Router architecture, Cache Components, data caching and revalidation, authentication, authorization, Server Actions, Route Handlers and streaming. Use for new or existing Next.js projects.",
+      "name": "nextjs-development",
+      "path": "skills/nextjs-development"
     },
     {
-      "description": "Use when the user asks for documentation: a README, user guide, API reference, tutorial, changelog, or any written explanation of code or a product. It guides the agent to write clear, structured, example-led docs with diagrams and version notes, and to keep the docs in sync with the code they describe.",
-      "name": "docs-writer",
-      "path": "skills/docs-writer"
+      "description": "Discover software requirements, analyze feasibility, research current technologies and produce evidence-backed project plans. Use before starting a new project or making consequential technical choices.",
+      "name": "project-discovery-research",
+      "path": "skills/project-discovery-research"
     },
     {
-      "description": "Use when building a production Electron desktop app with a secure main, renderer, and preload split, context isolation, IPC patterns, auto-updater, electron-builder packaging for Windows, macOS, and Linux, security hardening, testing, and distribution.",
-      "name": "electron-app",
-      "path": "skills/electron-app"
+      "description": "Build maintainable Python APIs and backend services with FastAPI, Django or Flask, including validation, persistence, async behavior, testing and deployment.",
+      "name": "python-backend-development",
+      "path": "skills/python-backend-development"
     },
     {
-      "description": "Use when building a production FastAPI backend in Python, including Pydantic v2 schemas, SQLAlchemy 2.0 or SQLModel models, Alembic migrations, JWT authentication, dependency injection, background tasks, OpenAPI documentation, pytest testing, Docker, and deployment.",
-      "name": "fastapi-stack",
-      "path": "skills/fastapi-stack"
+      "description": "Orchestrate complete software projects from discovery and research through architecture, implementation, testing, security review, deployment, documentation and handover. Use for new projects, major features, refactors and end-to-end engineering tasks.",
+      "name": "software-engineering-orchestrator",
+      "path": "skills/software-engineering-orchestrator"
     },
     {
-      "description": "Use when building a production Flutter app in Dart with clean architecture, Riverpod or Bloc state management, Dio networking, local storage, navigation, widget and integration tests, and Android and iOS builds ready for store submission.",
-      "name": "flutter-app",
-      "path": "skills/flutter-app"
+      "description": "Produce accurate Markdown project documentation, architecture records, setup guides, API references, operational runbooks and final handover reports.",
+      "name": "technical-documentation",
+      "path": "skills/technical-documentation"
     },
     {
-      "description": "Use when working on several branches at the same time, running parallel tasks or agents in one repository, switching branches without stashing or losing uncommitted work, or cleaning up extra checkouts after a merge.",
-      "name": "git-worktree",
-      "path": "skills/git-worktree"
+      "description": "Choose frontend, backend, database, runtime, framework, ORM, testing and infrastructure technologies based on project constraints. Use before implementation or when evaluating a stack change.",
+      "name": "technology-stack-selector",
+      "path": "skills/technology-stack-selector"
     },
     {
-      "description": "Use when preparing a GitHub repository to go viral, including writing an English-first README, choosing topics, recording a demo GIF or video, writing release notes, drafting a launch post, and running a pre-publish checklist before making the repo public.",
-      "name": "github-viral",
-      "path": "skills/github-viral"
-    },
-    {
-      "description": "Use when building a production Go backend API or service with Gin or Fiber, PostgreSQL, JWT authentication, migrations, structured logging, graceful shutdown, table-driven tests, and a Docker multi-stage build.",
-      "name": "go-backend",
-      "path": "skills/go-backend"
-    },
-    {
-      "description": "Use when the user asks to verify live TV streams, IPTV playlists, or m3u8/DASH links, including checking whether a channel is live, dead, geo-blocked, or tokenized, and when cleaning up or adding channels to a playlist.",
-      "name": "iptv-stream-check",
-      "path": "skills/iptv-stream-check"
-    },
-    {
-      "description": "Use when building an MCP (Model Context Protocol) server from scratch, adding tools, resources, or prompts to an MCP server, choosing between stdio and HTTP transport, or testing an MCP server with a client such as Claude Code, Claude Desktop, or the MCP Inspector.",
-      "name": "mcp-builder",
-      "path": "skills/mcp-builder"
-    },
-    {
-      "description": "Use when building a production MERN application with MongoDB, Express, React, and Node.js, including project scaffolding, JWT authentication with refresh tokens, validation, pagination, file uploads, testing, and deployment to Vercel and Render or Railway.",
-      "name": "mern-stack",
-      "path": "skills/mern-stack"
-    },
-    {
-      "description": "Use when building, reviewing, or fixing a production NestJS backend API, including modules, controllers, services, TypeORM or Prisma data access, guards, interceptors, pipes, JWT authentication with role-based access control, request validation, Swagger documentation, Jest unit and end-to-end testing, and Docker deployment.",
-      "name": "nestjs-backend",
-      "path": "skills/nestjs-backend"
-    },
-    {
-      "description": "Use when building a production PERN application with PostgreSQL, Express, React, and Node.js using Prisma, including schema design, migrations, relations, transactions, indexing, connection pooling, JWT authentication, validation, pagination, file uploads, testing, and deployment.",
-      "name": "pern-stack",
-      "path": "skills/pern-stack"
-    },
-    {
-      "description": "Use when code must be reviewed and tested before delivery, when running a final quality gate, pre-release check, or acceptance review, or when deciding whether a change is safe to ship.",
-      "name": "quality-gate",
-      "path": "skills/quality-gate"
-    },
-    {
-      "description": "Use when planning a software project from start to finish, when the user asks for a project plan, roadmap, or timeline, or when work must be organised into research, requirements, design, implementation, testing, deployment, and maintenance phases.",
-      "name": "sdlc-planner",
-      "path": "skills/sdlc-planner"
-    },
-    {
-      "description": "Use when running a full security audit of an application, service, or codebase, covering threat modelling, dependency and secrets checks, headers and CORS, authentication and sessions, and data exposure, and when a structured audit report with a findings table is needed.",
-      "name": "security-audit",
-      "path": "skills/security-audit"
-    },
-    {
-      "description": "Use when choosing a technology stack, framework, database, or software architecture for a new project, when comparing stacks or architectures, or when writing a stack decision document before coding starts.",
-      "name": "stack-architect",
-      "path": "skills/stack-architect"
-    },
-    {
-      "description": "Use when the user asks for tests, test coverage, TDD, or verification that code works, including unit, integration, and end-to-end tests for Python or JavaScript/TypeScript projects, and when a bug fix or new feature needs a failing test first and a passing test after.",
-      "name": "test-writer",
-      "path": "skills/test-writer"
-    },
-    {
-      "description": "Use when designing or reviewing a user interface, including landing pages, dashboards, forms, and mobile screens, and when an interface looks generic or AI-generated and needs specific typography, spacing, color, real content, accessibility, and mobile-first fixes.",
-      "name": "ui-design",
-      "path": "skills/ui-design"
-    },
-    {
-      "description": "Use when downloading videos correctly, including picking the best format and quality with yt-dlp, downloading and concatenating HLS/m3u8 streams with ffmpeg, resuming interrupted downloads, and handling playlists, subtitles, and audio extraction.",
-      "name": "video-downloader",
-      "path": "skills/video-downloader"
-    },
-    {
-      "description": "Use when the user asks for research, fact-checking, comparison, or current information from the web. It guides the agent to search broadly, open primary sources, cross-check claims against at least two independent sources, cite every factual claim with a URL, and distinguish live data from stale search-index copies.",
-      "name": "web-research",
-      "path": "skills/web-research"
+      "description": "Create risk-based test strategies and execute unit, integration, contract, end-to-end, regression, accessibility, security and performance testing for software projects.",
+      "name": "testing-quality-assurance",
+      "path": "skills/testing-quality-assurance"
     }
   ],
   "version": "1.3.1"

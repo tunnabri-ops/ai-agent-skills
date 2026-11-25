@@ -7,7 +7,7 @@ labels: bug
 
 ## Which skill or file?
 
-<!-- e.g. bug-hunter, install.sh, README.md -->
+<!-- e.g. mern-pern-development, install.sh, README.md -->
 
 ## What is wrong?
 

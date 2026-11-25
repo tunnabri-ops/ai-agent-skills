@@ -101,7 +101,7 @@ if [ "$DO_VERIFY" -eq 1 ]; then
       target="$dest/$skill"
       if [ -f "$target/SKILL.md" ] \
         && grep -q '^name: '"$skill"'$' "$target/SKILL.md" \
-        && grep -q '^description: Use when' "$target/SKILL.md"; then
+        && grep -Eq '^description: .+' "$target/SKILL.md"; then
         echo "OK      $skill  ($dest)"
       else
         echo "MISSING $skill  ($dest)"

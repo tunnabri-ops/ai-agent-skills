@@ -1,0 +1,29 @@
+{
+  "package": "Professional Software Engineering Agent Skills",
+  "language": "English",
+  "skills": [
+    "architecture-selector",
+    "code-review-security",
+    "database-engineering",
+    "dotnet-development",
+    "electron-development",
+    "flutter-development",
+    "go-backend-development",
+    "laravel-development",
+    "mern-pern-development",
+    "nextjs-development",
+    "project-discovery-research",
+    "python-backend-development",
+    "software-engineering-orchestrator",
+    "technical-documentation",
+    "technology-stack-selector",
+    "testing-quality-assurance"
+  ],
+  "references": [
+    "references/documentation-templates.md",
+    "references/official-research-sources.md",
+    "references/review-checklist.md",
+    "references/sdlc-gates.md",
+    "references/stack-selection-matrix.md"
+  ]
+}

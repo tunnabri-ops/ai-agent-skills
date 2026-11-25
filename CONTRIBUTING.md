@@ -1,83 +1,69 @@
 # Contributing
 
-Thanks for helping make these skills better. This repo holds up a high bar on purpose: people install these skills into their coding agents and trust them on real projects. A skill that is vague, untested, or copied from somewhere else does more harm than no skill at all. Read this guide before opening a pull request.
+Thanks for helping improve these software-engineering skills. Keep changes focused, evidence-based and consistent with the modular layout.
 
 ## Before you start
 
-- **Check the skill list first.** Open `skills/` and the table in `README.md`. If a skill already covers your idea, improve that skill instead of adding a near-duplicate.
-- **Check open issues and pull requests** so two people do not build the same skill.
-- **One change per pull request.** One new skill, or one fix to one skill. A PR that touches five skills is hard to review and will be asked to split.
+- Check `skills/` and the skill table in `README.md` to avoid adding a duplicate.
+- Check open issues and pull requests before starting substantial work.
+- Keep each change focused. Explain any change that affects multiple skills or shared references.
 
-## Adding a new skill
+## Adding a skill
 
-1. **Create the folder** `skills/<skill-name>/` — the name must be kebab-case, short, and descriptive (for example `stack-architect`, not `my-cool-helper-v2`). The folder name and the skill name must match exactly.
-2. **Write `skills/<skill-name>/SKILL.md`** with YAML frontmatter first, exactly this shape:
+1. Create `skills/<skill-name>/SKILL.md`. Use a short kebab-case folder name and make it match the `name` in the YAML frontmatter.
+2. Include a clear `description` that explains the skill's purpose and when it is useful. Keep the frontmatter valid and put it at the beginning of the file:
 
    ```yaml
    ---
-   name: <skill-name>
-   description: Use when ... (3rd person, say WHEN to use it)
+   name: example-skill
+   description: Explain the task this skill supports and when to use it.
    ---
    ```
 
-   The description is how the agent decides to load the skill, so make it specific: name the task, the tools, and the situation. A description like "Use when you need help" is too vague and will be rejected.
-3. **Body, in this order:**
-   - **What this skill does** (2–4 lines, plain English)
-   - **Workflow** — numbered steps the agent follows, in the order it should do them
-   - **Checklist** — what "done" looks like, so the agent can verify its own work
-   - **Examples** — at least one concrete input → output example with real commands, file names, and expected results
-   - **Pitfalls** — what to avoid, including safety limits (never exploit live production, never store secrets, never download content without rights)
-4. **Length: 150–200 lines.** Concrete commands and real examples, not vague advice. If you cannot fill 150 lines with real, tested content, the skill is not ready yet — keep it out of the PR.
-5. **English only.** All prose and code comments in English. The only exceptions are the two Bangla skills (`bangla-content`, `bangla-llm-train`), where Bangla examples are the point.
-6. **Add the skill to `skills.json`** (name, description, path) and to the **table in `README.md`**, keeping both in alphabetical order by skill name.
-7. **Helper scripts, if any,** go under `skills/<name>/scripts/`, must be executable (`chmod +x`), and must be tested before submitting. A script that has never been run will be rejected. Keep scripts small and dependency-free where possible (bash + curl, or plain Python).
-8. **Update `examples/usage.md`** only if your skill changes how a documented example session works. Do not add a new example session for every skill.
+3. Give the skill actionable guidance: a suitable workflow, checks or completion criteria, concrete examples where useful, and relevant limitations or safety boundaries. Prefer verified commands and current official sources; do not add length without useful content.
+4. Add the skill name, description and path to `skills.json`; add its name and purpose to `skills/skills-inventory.json` and the table in `README.md`. Keep the lists alphabetized by skill name.
+5. Add shared supporting material under `skills/references/` only when it is useful to more than one skill. Update `skills/skills-inventory.json` to list each reference file.
+6. Put helper scripts under the skill's `scripts/` directory. Make shell scripts executable and validate them with their real, safe inputs before submitting.
 
-## Updating an existing skill
+## Updating a skill
 
-- **Fix the example, not just the prose.** If a command is wrong, run the corrected command yourself before submitting.
-- **Keep the description in sync.** If the skill now covers a new case, say so in the frontmatter description.
-- **Do not rename a skill in a fix.** Renames break installed copies and the `skills.json` manifest — a rename is a separate, discussed change, never a drive-by.
-- **Do not shrink a skill to make it "simpler".** If a section is out of date, rewrite it with current, correct content.
+- Check the skill instructions and any related reference files before editing.
+- Keep the frontmatter, both inventories and README consistent if the skill's name or purpose changes.
+- Do not rename a skill as part of an unrelated fix; installed folder names are part of its public interface.
+- Verify changed commands and examples. Do not claim checks passed unless you ran them.
 
-## Validate before you submit
+## Validate before submitting
 
-Run these two checks from the repo root. Both must pass, with zero failures, before a PR is opened:
+Run the repository validator from the root:
 
 ```bash
-./scripts/validate-skills.sh   # frontmatter, skills.json match, bash -n, no placeholders
-./install.sh --dest /tmp/skill-check --verify   # install all skills to a temp dir and verify them
+./scripts/validate-skills.sh
 ```
 
-If the validator fails, fix the cause — do not weaken the validator to make it pass. Also run any helper script your change touches with a real input (for example, run `check-stream.sh` against a real m3u8 URL and `api-smoke.sh` against a real API base URL) and paste the output in the PR description.
+For installer changes, also check the list and preview behavior:
+
+```bash
+./install.sh --list
+./install.sh --dry-run
+```
+
+If you install into a temporary directory, verify the installed copies with `./install.sh --dest <directory> --verify` and remove only the temporary directory you created. Run any helper script you changed with safe test inputs. Include the exact commands and results in your pull request.
 
 ## Pull request process
 
-1. Fork the repo, create a branch named after the change (`skill/<name>` for a new skill, `fix/<name>` for a fix).
-2. Make the change, run the checks above, and commit with a clear message:
-   - `skill: add <name> — one-line summary`
-   - `fix: <skill-name> — what was wrong and what changed`
-   - `docs: <what changed>`
-3. Open the PR with a short description: what the skill does, how you tested it (commands run, outputs seen), and anything you could not verify. A PR that says "tested" without showing how will be asked for evidence.
-4. Expect review comments on accuracy, not just style. A claim the reviewer cannot reproduce will be removed or the PR will be held until it can be reproduced.
+1. Create a branch named for the focused change.
+2. Explain what changed and why, and report exact validation commands and results.
+3. Note anything that could not be verified and any follow-up work.
 
 ## What gets rejected
 
-- **Placeholders** — unfinished markers, "coming soon", or sections that say "add examples here".
-- **Fake claims** — star counts, download counts, benchmark numbers, or "works with X" that you have not verified yourself.
-- **Copied content** — skills must be written in your own words. Do not copy another repo's skill text, README, or branding, and do not copy content from a closed-source product.
-- **Secrets** — API keys, tokens, passwords, or private URLs. If an example needs a key, use an obvious placeholder such as `YOUR_API_KEY` and say where the user gets a real one.
-- **Unsafe instructions** — bypassing logins, CAPTCHAs, paywalls, or license checks; exploiting live systems; deleting data the user did not ask to delete.
-- **Scope creep** — a skill that tries to do everything. A focused skill that does one job well beats a broad one that does five jobs badly.
+- Unfinished placeholders or unsupported claims.
+- Fabricated test results, compatibility claims or source citations.
+- Copied content that you do not have permission to contribute.
+- Secrets, private URLs or personal data.
+- Instructions to bypass access controls, exploit live systems or delete data without authorization.
+- Unnecessary scope creep or duplicate skills.
 
-## After your PR is merged
+## Code of conduct and license
 
-The skill ships in the next release, and the README table, `skills.json`, and version badge are updated together. If your skill is the first of a new category, say so in the PR — the README's "What's new" section should mention it by name.
-
-## Code of conduct
-
-Be respectful in issues, reviews, and pull requests. Disagree about the work, not about the person. No harassment, no insults, no spam, no self-promotion unrelated to the skill being discussed. Maintainers may close or hide comments that cross that line, and repeat behaviour leads to a ban from the repo.
-
-## License
-
-By contributing, you agree your contribution is released under the same [MIT License](LICENSE) as the rest of this repo.
+Be respectful and constructive in issues, reviews and pull requests. By contributing, you agree your contribution is released under the repository's [MIT License](LICENSE).

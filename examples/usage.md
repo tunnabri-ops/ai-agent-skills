@@ -1,150 +1,109 @@
-# Example sessions
+# Example workflows
 
-Five concrete sessions showing what these skills do in practice. Each one
-starts with a plain user request — the agent loads the matching skill itself.
+These are illustrative prompts showing how the current skills can be combined. They are not reports of work performed or guaranteed outputs.
 
 ---
 
-## 1. Bug-hunter on a login route
+## 1. Plan a new project
 
 **User:**
 
-> Review this login route for security bugs.
+> I want to build a booking platform for a small clinic. Help me plan it before implementation.
 
-```js
-app.post("/login", async (req, res) => {
-  const user = await db.users.findOne({ email: req.body.email });
-  if (!user || user.password !== req.body.password) {
-    return res.status(401).json({ error: "Invalid email or password" });
-  }
-  res.json({ token: jwt.sign({ id: user.id }, "secret123") });
-});
-```
+**Possible workflow:**
 
-**Agent (loads `bug-hunter`):**
+1. `software-engineering-orchestrator` inspects the existing repository and coordinates the work.
+2. `project-discovery-research` clarifies users, booking rules, privacy needs, constraints and acceptance criteria, then verifies relevant technical assumptions against primary sources.
+3. `technology-stack-selector` and `architecture-selector` compare viable options and record the selected stack and system boundaries.
+4. `database-engineering` reviews the data model, constraints, indexes and transaction needs for availability and bookings.
+5. `technical-documentation` helps create the project brief, requirements, architecture notes and decision records.
 
-| # | Finding | Severity | Proof | Fix |
-|---|---------|----------|-------|-----|
-| 1 | Plain-text password comparison — passwords stored/compared in clear text | **Critical** | `user.password !== req.body.password` compares raw strings; a DB leak exposes every password | Store bcrypt/argon2 hashes; compare with `bcrypt.compare()` |
-| 2 | Hard-coded JWT secret `"secret123"` | **Critical** | Anyone reading the source can forge tokens for any user | Load the secret from an env var, min. 32 random bytes, rotate it |
-| 3 | No rate limiting on `/login` | **High** | An attacker can brute-force passwords with unlimited attempts | Add rate limiting (e.g. 5 attempts / 15 min per IP + account lockout) |
-| 4 | JWT has no expiry | **Medium** | A stolen token works forever | Set `expiresIn: "15m"` and use refresh tokens |
-| 5 | No account-enumeration guard on timing | **Low** | `findOne` vs compare timing can leak whether an email exists | Always run the hash comparison, even when the user is missing |
-
-Result: five findings, worst first, each with a concrete fix — not "this looks insecure".
+The team should agree on the requirements and consequential decisions before implementation starts.
 
 ---
 
-## 2. iptv-stream-check on a playlist
+## 2. Choose a database
 
 **User:**
 
-> Check whether these links are still live:
->
-> - `https://example-cdn.com/live/bangla-vision.m3u8`
-> - `https://old-host.net/sports.m3u8`
-> - `https://cdn.example.com/mono.ts.m3u8`
+> This app stores orders, inventory and customer details. Should I use PostgreSQL or MongoDB?
 
-**Agent (loads `iptv-stream-check`):**
+**Possible response shape:**
 
-```bash
-./skills/iptv-stream-check/scripts/check-stream.sh \
-  https://example-cdn.com/live/bangla-vision.m3u8
-# LIVE — HTTP 200, content-type: application/vnd.apple.mpegurl, 1 redirect
+| Consideration | Questions to resolve |
+|---|---|
+| Data relationships | How are orders, customers and inventory queried together? |
+| Consistency | Which updates must succeed or fail atomically? |
+| Access patterns | What reads and writes are expected, and how will they grow? |
+| Operations | Which database can the team deploy, back up and maintain? |
 
-./skills/iptv-stream-check/scripts/check-stream.sh \
-  https://old-host.net/sports.m3u8
-# DEAD — HTTP 404, no playlist body
-
-./skills/iptv-stream-check/scripts/check-stream.sh \
-  https://cdn.example.com/mono.ts.m3u8
-# UNKNOWN — HTTP 403 in sandbox (curl blocked)
-# → marked NEEDS-DEVICE-CHECK, not deleted: mono.ts links often
-#   fail a sandbox curl check and still play on a real device.
-```
-
-**Report:**
-
-| URL | Verdict | Evidence |
-|-----|---------|----------|
-| bangla-vision.m3u8 | LIVE | 200, mpegurl, 1 redirect |
-| sports.m3u8 | DEAD | 404, confirmed twice |
-| mono.ts.m3u8 | NEEDS-DEVICE-CHECK | 403 in sandbox only — keep, verify on device |
+`project-discovery-research`, `technology-stack-selector`, `architecture-selector` and `database-engineering` can help gather constraints, compare the options, and document a decision. The result should depend on verified requirements rather than a universal rule.
 
 ---
 
-## 3. github-viral launch checklist
+## 3. Review a change before merging
 
 **User:**
 
-> I just finished my repo. Help me launch it.
+> Review my branch against the base branch and tell me what must be fixed before merge.
 
-**Agent (loads `github-viral`):**
+**Possible workflow:**
 
-1. **README check** — hero line, install in under 60 seconds, demo GIF at the top, English-first. Missing demo → records a 30-second screen recording first.
-2. **Topics** — adds up to 20 relevant topics (`claude-code`, `agent-skills`, `ai-agents`, …), removes the generic ones.
-3. **Release** — tags `v1.0.0`, writes release notes in "what it does / how to try it in 2 minutes" form, attaches no binaries the user didn't build.
-4. **Launch post** — drafts from the template:
+1. `code-review-security` inspects the complete diff and relevant surrounding code for correctness, authorization, data integrity, security and maintainability.
+2. It reports only actionable findings, with severity, affected location, impact and a concrete remediation.
+3. `testing-quality-assurance` identifies focused tests for the changed behavior and runs the repository's relevant checks.
+4. The orchestrator summarizes fixed findings, remaining risks and the exact checks that were run.
 
-> **12 skills your coding agent is missing**
->
-> I kept writing the same instructions into every agent session — hunt bugs, write tests, audit security — so I packaged them as skills.
->
-> `git clone … && ./install.sh` — 30 seconds, Claude Code / Codex / Cursor.
->
-> Repo: https://github.com/tunnabri-ops/ai-agent-skills
-
-5. **After launch** — answers the first issues the same day, stars don't come from the post, they come from the replies.
+Review only code and systems the user is authorized to assess. Do not claim a test or security check passed unless it was actually run.
 
 ---
 
-## 4. agent-memory across two sessions
-
-**Session 1 — User:**
-
-> Remember: mono.ts.m3u8 links fail my sandbox check but play on my device. Never delete them on sandbox failure alone.
-
-**Agent (loads `agent-memory`):** writes to `MEMORY.md` under Lessons:
-
-```markdown
-- LESSON (standing): mono.ts.m3u8 links are NEVER to be checked, judged,
-  or removed — sandbox failure means nothing for them. The user's device
-  is the ground truth.
-```
-
-**Session 2, next day — User:**
-
-> Clean up the dead channels in the playlist.
-
-**Agent (loads `agent-memory` first):** reads `MEMORY.md`, finds the mono.ts lesson, and checks every link *except* mono.ts ones. The report marks the 5 mono.ts links `NEEDS-DEVICE-CHECK` and leaves them in place — the user never has to repeat the rule, and no working channel is deleted by mistake.
-
-Result: memory survives the session, the standing rule is applied without being restated, and nothing secret (no keys, no tokens) was ever written to the memory file.
-
----
-
-## 5. E-commerce API — research, stack choice, plan, build, quality gate
+## 4. Document an existing service
 
 **User:**
 
-> Build me an e-commerce API: products, cart, orders, payments.
+> Write a setup guide and API overview for this service, but first verify what the code actually does.
 
-**Agent — step 1 (loads `web-research`):** researches before writing any code — how Stripe/bKash-style payment flows verify orders server-side, what a minimal order state machine looks like (pending → paid → shipped → delivered), and which stacks teams actually run for small shops. Findings are cited with URLs, not guessed.
+**Possible workflow:**
 
-**Agent — step 2 (loads `stack-architect`):** asks four questions (team size: 1 developer; traffic: hundreds of orders/day, not millions; budget: free hosting; deadline: 2 weeks) and writes `STACK_DECISION.md`:
+1. `technical-documentation` inspects the repository, configuration, routes and existing tests.
+2. It records confirmed setup steps and API behavior, distinguishing verified details from unknowns.
+3. It updates the appropriate README or documentation pages and links to source or generated API specifications where useful.
+4. The orchestrator checks that the documentation matches the implementation and reports any gaps it could not verify.
 
-| Decision | Choice | Why |
-|---|---|---|
-| Stack | **PERN + Prisma** | Relational data (orders, stock) needs transactions; Prisma migrations are safe for one developer |
-| Architecture | **Layered + repository** | Routes → services → repositories; easy to test, easy to swap the payment provider later |
-| Auth | JWT access (15 min) + rotating refresh tokens | Same pattern as `pern-stack` |
-| Payments | Provider checkout, verified by webhook | Never trust a success-page redirect — an order is Paid only on a verified webhook event |
-| Rejected | Microservices | One developer, one deployable — microservices would triple the ops work for zero benefit |
-| Rejected | MongoDB | Stock decrements and order totals need ACID transactions, not embedded documents |
+---
 
-**Agent — step 3 (loads `sdlc-planner`):** writes `PROJECT_PLAN.md` before coding — requirements (user stories + acceptance criteria), DB schema, API contract, milestones (auth → catalog → cart → orders → payments → deploy), test plan, deployment and rollback, risks (payment verification, stock races). The user reads the whole plan in one md file and approves it.
+## 5. Build a Next.js app with caching and authentication
 
-**Agent — step 4 (loads `pern-stack`):** builds it — Prisma schema, migrations, JWT auth, validation, pagination, order creation inside a `$transaction` (create order + decrement stock atomically), webhook handler that marks orders Paid only after signature verification.
+**User:**
 
-**Agent — step 5 (loads `quality-gate`):** runs the gate — `code-reviewer` first for the review pass, `test-writer` first for the tests. Findings: one Critical (stock decrement outside the transaction — fixed, re-tested), two Medium (missing rate limit on login, no idempotency key on order creation — fixed). Tests: 42 unit + 11 integration + 6 e2e, all passing.
+> Build a product catalog and account dashboard in Next.js. The catalog should stay fast but update after edits; account data must never leak between users.
 
-**`QUALITY_REPORT.md` verdict: PASS** — 0 open Critical/High findings, all tests green, smoke test (register → add to cart → checkout → webhook → order Paid) verified end to end. Only then is the API handed over.
+**Possible workflow:**
+
+1. `nextjs-development` checks the installed Next.js version, router, deployment runtime and whether Cache Components are enabled.
+2. `project-discovery-research` clarifies catalog freshness, user/session requirements, identity provider needs and data sensitivity.
+3. Cache public catalog data with an explicit lifetime and tag; invalidate after admin edits. Use immediate `updateTag` behavior for user-facing Server Action writes that require read-your-own-writes, and stale-while-revalidate for suitable webhook updates.
+4. Choose a maintained auth library or managed OIDC provider based on the product's SSO, MFA, account recovery, deployment and operational requirements. Avoid custom protocol or cryptographic code.
+5. Keep session checks and record-level authorization in a server-only data access layer. Treat Proxy checks as early redirects only, and authorize every Server Action and Route Handler independently.
+6. Stream request-specific account UI behind Suspense. Do not put private account data in a cache shared across users; if private data is cached, prove identity/tenant isolation and invalidation behavior with tests.
+
+The implementation should verify cache isolation, freshness, mutation invalidation, denied access, loading states and the production build.
+
+---
+
+## 6. Choose Laravel or .NET for a business application
+
+**User:**
+
+> We need an internal business API with a relational database, background jobs and role-based access. Our team has experience with both PHP and C#.
+
+**Possible workflow:**
+
+1. `project-discovery-research` clarifies hosting, integrations, team ownership, support lifecycle, security and operational constraints.
+2. `technology-stack-selector` compares Laravel and ASP.NET Core against those requirements rather than assuming either framework is universally better.
+3. If Laravel is selected, `laravel-development` guides Eloquent data modeling, policies, session/API authentication, queues, migrations and deployment.
+4. If .NET is selected, `dotnet-development` guides the ASP.NET Core API style, authentication schemes, policy/resource authorization, EF Core, hosted services and deployment.
+5. `database-engineering` and `testing-quality-assurance` help validate transaction boundaries, background-job retry behavior and authorization tests.
+
+Record the selected framework, supported runtime versions, authentication model, database, queue backend and deployment evidence in the project's decision documents.

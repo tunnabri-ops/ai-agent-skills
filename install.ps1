@@ -2,7 +2,10 @@
 # Usage:
 #   .\install.ps1                 install all skills into every agent dir found
 #   .\install.ps1 -List           list skills, install nothing
-#   .\install.ps1 -Skill bug-hunter   install one skill only
+#   .\install.ps1 -Skill software-engineering-orchestrator   install one skill only
+#   .\install.ps1 -Skill nextjs-development   install the Next.js skill only
+#   .\install.ps1 -Skill laravel-development   install the Laravel skill only
+#   .\install.ps1 -Skill dotnet-development   install the .NET skill only
 #   .\install.ps1 -DryRun         show what would happen, change nothing
 #   .\install.ps1 -Dest <dir>     install into a custom skills directory
 param(

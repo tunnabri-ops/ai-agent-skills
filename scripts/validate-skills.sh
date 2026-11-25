@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 # validate-skills.sh — validate the ai-agent-skills repo.
-# Checks every skills/*/SKILL.md for frontmatter (name + description),
-# name matches folder, description starts with "Use when", skills.json
-# parses and lists exactly the same skill names, and every referenced
-# scripts/*.sh exists and passes bash -n.
+# Checks every skill folder for valid frontmatter, name matches, both skill
+# inventories match, referenced files exist, and shell scripts pass bash -n.
 # Exits 0 only when every check passes.
 set -uo pipefail
 
@@ -20,6 +18,8 @@ bad()  { FAIL=$((FAIL + 1)); echo "FAIL  $1"; }
 for d in "$SKILLS_DIR"/*/; do
   [ -d "$d" ] || continue
   skill="$(basename "$d")"
+  # Shared references are repository resources, not installable skills.
+  [ "$skill" = "references" ] && continue
   file="$d/SKILL.md"
   if [ ! -f "$file" ]; then
     bad "$skill: missing SKILL.md"
@@ -43,15 +43,14 @@ for d in "$SKILLS_DIR"/*/; do
     bad "$skill: frontmatter name '$name' does not match folder"
   elif [ -z "$desc" ]; then
     bad "$skill: frontmatter has no description"
-  elif ! printf '%s' "$desc" | grep -q '^Use when'; then
-    bad "$skill: description does not start with 'Use when'"
   else
-    ok "$skill: frontmatter valid (name matches, description starts 'Use when')"
+    ok "$skill: frontmatter valid (name matches, description exists)"
   fi
 done
 
 # --- 2. skills.json parses and lists exactly the same names ------------------
 MANIFEST="$REPO_DIR/skills.json"
+INVENTORY="$SKILLS_DIR/skills-inventory.json"
 if [ ! -f "$MANIFEST" ]; then
   bad "skills.json: missing"
 else
@@ -59,7 +58,11 @@ else
     bad "skills.json: does not parse as JSON"
   else
     ok "skills.json: parses as JSON"
-    folders="$(for d in "$SKILLS_DIR"/*/; do basename "$d"; done | sort | tr '\n' ' ' | sed 's/ *$//')"
+    folders="$(for d in "$SKILLS_DIR"/*/; do
+      [ -d "$d" ] || continue
+      [ "$(basename "$d")" = "references" ] && continue
+      basename "$d"
+    done | sort | tr '\n' ' ' | sed 's/ *$//')"
     listed="$(python3 -c "
 import json
 m = json.load(open('$MANIFEST'))
@@ -69,18 +72,60 @@ print(' '.join(sorted(s['name'] for s in m.get('skills', []))))")"
     else
       bad "skills.json: names differ — folders: $folders ; listed: $listed"
     fi
-    # Every manifest entry must have name, description, path; path must exist.
-    python3 - "$MANIFEST" "$SKILLS_DIR" <<'PYEOF' || bad "skills.json: an entry is missing name/description/path or its path does not exist"
-import json, os, sys
+    # Validate manifest entries and the repository inventory, including its
+    # shared reference paths.
+    if [ ! -f "$INVENTORY" ]; then
+      bad "skills/skills-inventory.json: missing"
+    elif python3 - "$MANIFEST" "$SKILLS_DIR" "$INVENTORY" "$REPO_DIR/README.md" "$SKILLS_DIR/README.md" <<'PYEOF'
+import json, os, re, sys
 m = json.load(open(sys.argv[1]))
 skills_dir = sys.argv[2]
-for s in m.get("skills", []):
+inventory = json.load(open(sys.argv[3]))
+readme_paths = sys.argv[4:]
+manifest_skills = m.get("skills", [])
+for s in manifest_skills:
     assert s.get("name") and s.get("description") and s.get("path"), s
-    assert os.path.isdir(os.path.join(skills_dir, s["name"])), s["name"]
+    skill_dir = os.path.join(skills_dir, s["name"])
+    assert os.path.isdir(skill_dir), s["name"]
     assert s["path"] == "skills/" + s["name"], s
-print("manifest entries complete")
+    frontmatter = {}
+    with open(os.path.join(skill_dir, "SKILL.md"), encoding="utf-8") as skill_file:
+        for line in skill_file:
+            line = line.rstrip("\n")
+            if line == "---" and frontmatter:
+                break
+            if line.startswith(("name: ", "description: ")):
+                key, value = line.split(": ", 1)
+                frontmatter[key] = value
+    assert frontmatter.get("name") == s["name"], s["name"]
+    assert frontmatter.get("description") == s["description"], s["name"]
+inventory_skills = inventory.get("skills", [])
+assert len(inventory_skills) == len(set(inventory_skills)), \
+    "inventory contains duplicate skill names"
+assert sorted(inventory_skills) == sorted(s["name"] for s in manifest_skills), \
+    "inventory skill names differ from skills.json"
+references = inventory.get("references", [])
+assert len(references) == len(set(references)), \
+    "inventory contains duplicate reference paths"
+for path in references:
+    assert os.path.isfile(os.path.join(skills_dir, path)), path
+expected_names = sorted(s["name"] for s in manifest_skills)
+for readme_path in readme_paths:
+    with open(readme_path, encoding="utf-8") as readme_file:
+        contents = readme_file.read()
+    listed_names = sorted(re.findall(r"^\| `([^`]+)` \|", contents, re.MULTILINE))
+    assert listed_names == expected_names, \
+        f"skill table in {readme_path} differs from skills.json"
+with open(readme_paths[0], encoding="utf-8") as readme_file:
+    assert f"Skills: {len(manifest_skills)}]" in readme_file.read(), \
+        "README skill-count badge differs from skills.json"
+print("manifest entries, inventory references and README skill lists complete")
 PYEOF
-    [ "$FAIL" -eq 0 ] && ok "skills.json: every entry has name/description/path and the path exists"
+    then
+      ok "skills.json, inventory and README skill lists are valid"
+    else
+      bad "skills metadata or README lists differ, or a referenced path is invalid"
+    fi
   fi
 fi
 
