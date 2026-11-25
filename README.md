@@ -4,7 +4,7 @@
 
 <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=700&size=22&duration=2800&pause=900&color=00FF9C&center=true&vCenter=true&width=760&lines=Choose+the+right+stack;Plan+the+whole+SDLC;Build+production+software;Ship+only+what+passes+the+gate" />
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Skills: 30](https://img.shields.io/badge/Skills-30-blue.svg)](#skills) [![Version: 1.3.0](https://img.shields.io/badge/Version-1.3.0-green.svg)](#skills)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Skills: 30](https://img.shields.io/badge/Skills-30-blue.svg)](#skills) [![Version: 1.3.1](https://img.shields.io/badge/Version-1.3.1-green.svg)](#skills)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-purple.svg)](#install) [![Codex](https://img.shields.io/badge/Codex-Compatible-green.svg)](#install) [![Cursor](https://img.shields.io/badge/Cursor-Compatible-blue.svg)](#install)
 
 </div>
@@ -69,6 +69,10 @@ Every skill in this repo is:
 | 28 | `ui-design` | Your interface looks AI-generated and needs real typography, spacing, color, content, and accessibility. |
 | 29 | `video-downloader` | You want to download videos correctly — yt-dlp, HLS/m3u8 + ffmpeg, resume, quality picker. |
 | 30 | `web-research` | You want deep web research with verification — primary sources, cross-checks, real citations. |
+
+## What's new in v1.3.1
+
+- **Community files** — `SECURITY.md` (how to report a vulnerability), `CODE_OF_CONDUCT.md`, bug-report and new-skill issue templates, and a pull-request template, so the repo's community profile is complete.
 
 ## What's new in v1.3.0
 
