@@ -100,7 +100,9 @@ while IFS= read -r -d '' script; do
 done < <(find "$SKILLS_DIR" "$REPO_DIR/scripts" -name '*.sh' -print0 2>/dev/null)
 
 # --- 4. No forbidden placeholder text ----------------------------------------
-if grep -rniE 'TODO|FIXME|Original repo' "$REPO_DIR/skills" "$MANIFEST" "$REPO_DIR/README.md" >/dev/null 2>&1; then
+# Word-boundary match (-w): real identifiers such as Electron's
+# autoUpdater.autoDownload must not trip the check.
+if grep -rniEw 'TODO|FIXME|Original repo' "$REPO_DIR/skills" "$MANIFEST" "$REPO_DIR/README.md" >/dev/null 2>&1; then
   bad "forbidden text found (TODO/FIXME/Original repo)"
 else
   ok "no TODO/FIXME/'Original repo' text in skills, manifest or README"
