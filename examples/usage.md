@@ -1,6 +1,6 @@
 # Example sessions
 
-Three concrete sessions showing what these skills do in practice. Each one
+Four concrete sessions showing what these skills do in practice. Each one
 starts with a plain user request — the agent loads the matching skill itself.
 
 ---
@@ -95,3 +95,27 @@ Result: five findings, worst first, each with a concrete fix — not "this looks
 > Repo: https://github.com/tunnabri-ops/ai-agent-skills
 
 5. **After launch** — answers the first issues the same day, stars don't come from the post, they come from the replies.
+
+---
+
+## 4. agent-memory across two sessions
+
+**Session 1 — User:**
+
+> Remember: mono.ts.m3u8 links fail my sandbox check but play on my device. Never delete them on sandbox failure alone.
+
+**Agent (loads `agent-memory`):** writes to `MEMORY.md` under Lessons:
+
+```markdown
+- LESSON (standing): mono.ts.m3u8 links are NEVER to be checked, judged,
+  or removed — sandbox failure means nothing for them. The user's device
+  is the ground truth.
+```
+
+**Session 2, next day — User:**
+
+> Clean up the dead channels in the playlist.
+
+**Agent (loads `agent-memory` first):** reads `MEMORY.md`, finds the mono.ts lesson, and checks every link *except* mono.ts ones. The report marks the 5 mono.ts links `NEEDS-DEVICE-CHECK` and leaves them in place — the user never has to repeat the rule, and no working channel is deleted by mistake.
+
+Result: memory survives the session, the standing rule is applied without being restated, and nothing secret (no keys, no tokens) was ever written to the memory file.
