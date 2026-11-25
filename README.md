@@ -1,14 +1,25 @@
-# AI Agent Skills
+<div align="center">
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 30](https://img.shields.io/badge/Skills-30-blue.svg)](#skills)
-[![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-green.svg)](#skills)
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-purple.svg)](#install)
-[![Codex](https://img.shields.io/badge/Codex-Compatible-green.svg)](#install)
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0D1117&height=240&section=header&text=AI%20AGENT%20SKILLS&fontSize=70&fontColor=00FF9C" width="100%" />
 
-**30 production-ready skills for your AI coding agent.** Bug hunting, security audits, test writing, Bangla LLM training, stream checking, video downloading, agent memory, anti-slop UI design, MCP servers, free deployment — plus a full professional coding pack: choose the right stack and architecture, plan the whole SDLC, build production apps with MERN, PERN, FastAPI, Go, Flutter, Electron.js and NestJS, and pass a strict quality gate before anything ships. Each one a complete, self-contained playbook your agent can follow without guessing.
+<img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=700&size=22&duration=2800&pause=900&color=00FF9C&center=true&vCenter=true&width=760&lines=Choose+the+right+stack;Plan+the+whole+SDLC;Build+production+software;Ship+only+what+passes+the+gate" />
 
-No API keys. No servers. No subscriptions. Copy the skills into your agent and go.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Skills: 30](https://img.shields.io/badge/Skills-30-blue.svg)](#skills) [![Version: 1.3.0](https://img.shields.io/badge/Version-1.3.0-green.svg)](#skills)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-purple.svg)](#install) [![Codex](https://img.shields.io/badge/Codex-Compatible-green.svg)](#install) [![Cursor](https://img.shields.io/badge/Cursor-Compatible-blue.svg)](#install)
+
+</div>
+
+| **30** | **7** | **7** | **3** | **5** | **MIT** |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| SKILLS | STACK SKILLS | SDLC PHASES | HELPER SCRIPTS | EXAMPLE SESSIONS | LICENSE |
+
+# ai-agent-skills
+
+A self-contained bundle of 30 production-ready skills for your AI coding agent — stack and architecture choice, a full 7-phase SDLC, production builds with MERN, PERN, FastAPI, Go, Flutter, Electron.js and NestJS, and a strict quality gate of code review plus testing before anything ships — alongside bug hunting, security audits, agent memory, anti-slop UI design, MCP servers, Bangla LLM training, IPTV stream checks, video downloading, and free deployment. Each skill is a complete, runnable playbook with a workflow, a checklist, real examples, and explicit safety limits, so the agent follows a proven process instead of guessing.
+
+Built by [tunnabri-ops](https://github.com/tunnabri-ops) — software built to production standard, not as demos.
+
+**No API keys. No servers. No subscriptions. Copy the skills into your agent and go.**
 
 > Works with **Claude Code, Codex, Cursor, Gemini CLI, OpenCode**, and any agent that reads `SKILL.md` files.
 
@@ -59,20 +70,15 @@ Every skill in this repo is:
 | 29 | `video-downloader` | You want to download videos correctly — yt-dlp, HLS/m3u8 + ffmpeg, resume, quality picker. |
 | 30 | `web-research` | You want deep web research with verification — primary sources, cross-checks, real citations. |
 
-## What's new in v1.2.0
+## What's new in v1.3.0
 
-- **10 new skills — the professional coding pack:** `stack-architect`, `sdlc-planner`, `mern-stack`, `pern-stack`, `fastapi-stack`, `go-backend`, `flutter-app`, `electron-app`, `nestjs-backend`, `quality-gate` — 20 → 30 skills.
-- **Stack & architecture, chosen properly:** `stack-architect` compares MERN, PERN, FastAPI, Go, Flutter, Electron.js, NestJS, Django, Laravel and Next.js, plus modular monolith, layered, repository, clean/hexagonal and microservices — and writes a `STACK_DECISION.md` with the choice, the trade-offs, what was rejected and why. Never pick a stack because it is trendy.
-- **Full SDLC, in writing:** `sdlc-planner` walks research → requirements → design → implementation → testing → deployment → maintenance, each phase with exit criteria, and writes a `PROJECT_PLAN.md` before any code is written.
-- **Seven production stacks:** MERN, PERN, FastAPI, Go, Flutter, Electron.js and NestJS — each with real folder structures, auth, migrations, testing and deployment, not a hello-world.
-- **A gate that must pass:** `quality-gate` reviews and tests everything before delivery, builds on `code-reviewer` and `test-writer`, and writes a `QUALITY_REPORT.md` with a PASS/FAIL verdict. Nothing ships with known failing tests or skipped checks.
+- **BugHunter-style README** — dark hero banner, big-numbers row, and a one-paragraph description up front, with the full 30-skill table and install instructions kept intact below it.
+- **Expanded CONTRIBUTING** — step-by-step rules for adding a skill, updating one, running the validator, PR process, commit style, and what gets rejected.
 
+## Release history
 
-## What's new in v1.1.0
-
-- **8 new skills:** `agent-memory`, `ui-design`, `diagram-design`, `mcp-builder`, `git-worktree`, `browser-automation`, `app-store-compliance`, `deploy-free` — 12 → 20 skills.
-- **`install.sh` now has `--verify` and `--uninstall`**, detects Gemini CLI (`~/.gemini/skills`), backs up any existing skill folder to `<name>.bak` before overwriting, and prints a summary.
-- **New validator:** `scripts/validate-skills.sh` checks every skill's frontmatter, that `skills.json` matches the folders exactly, that every helper script passes `bash -n`, and that no placeholder text slipped in. Run it before every release.
+- **v1.2.0** — the professional coding pack: `stack-architect`, `sdlc-planner`, seven stack skills (MERN, PERN, FastAPI, Go, Flutter, Electron.js, NestJS), and `quality-gate` with a PASS/FAIL verdict and `QUALITY_REPORT.md`.
+- **v1.1.0** — `agent-memory`, `ui-design`, `diagram-design`, `mcp-builder`, `git-worktree`, `browser-automation`, `app-store-compliance`, `deploy-free`; `install.sh` gained `--verify` and `--uninstall`, Gemini CLI detection, and backups; `scripts/validate-skills.sh` added.
 
 ## Install
 
@@ -94,11 +100,7 @@ cd ai-agent-skills
 ./install.sh --uninstall        # remove only the skills this pack installed
 ```
 
-Validate the repo itself before a release:
-
-```bash
-./scripts/validate-skills.sh   # frontmatter, skills.json match, bash -n, no placeholders
-```
+Validate the repo itself before a release: `./scripts/validate-skills.sh` — checks frontmatter, skills.json match, `bash -n`, and no placeholders.
 
 ### Windows (PowerShell)
 
@@ -110,13 +112,7 @@ cd ai-agent-skills
 
 ### Manual (any agent)
 
-Copy any `skills/<name>/` folder into your agent's skills directory, e.g.:
-
-```bash
-cp -r skills/bug-hunter ~/.claude/skills/
-```
-
-That's it. No build step, no config file.
+Copy any `skills/<name>/` folder into your agent's skills directory — `cp -r skills/bug-hunter ~/.claude/skills/` — that's it. No build step, no config file.
 
 ## Quick start
 
@@ -124,16 +120,13 @@ Once installed, just describe the task in plain words — the agent picks the sk
 
 ```
 You: "Review this login route for security bugs."
-Agent: [loads bug-hunter] → triages findings by severity,
-        gives a proof-of-concept and a fix for each one.
+Agent: [loads bug-hunter] → triages findings by severity, with a proof-of-concept and a fix for each one.
 
 You: "Check whether these 40 m3u8 links are still live."
-Agent: [loads iptv-stream-check] → runs the checker script,
-        reports LIVE / DEAD / NEEDS-DEVICE-CHECK per link.
+Agent: [loads iptv-stream-check] → runs the checker script, reports LIVE / DEAD / NEEDS-DEVICE-CHECK per link.
 
-You: "Write a launch post for my new repo."
-Agent: [loads github-viral] → follows the pre-publish checklist,
-        then drafts the post from the template.
+You: "I need an e-commerce API. Research it, choose the stack, plan it, build it."
+Agent: [loads web-research → stack-architect → sdlc-planner → pern-stack → quality-gate] → writes STACK_DECISION.md and PROJECT_PLAN.md, builds it, then PASS/FAIL in QUALITY_REPORT.md.
 ```
 
 See [`examples/usage.md`](examples/usage.md) for five full example sessions.
@@ -143,19 +136,13 @@ See [`examples/usage.md`](examples/usage.md) for five full example sessions.
 ```
 skills/bug-hunter/
 └── SKILL.md        # frontmatter (name + when to use) + instructions
-```
 
-Some skills ship a helper script next to the instructions:
-
-```
 skills/iptv-stream-check/
 ├── SKILL.md
 └── scripts/check-stream.sh    # curl-based LIVE/DEAD/UNKNOWN checker
-
-skills/api-tester/
-├── SKILL.md
-└── scripts/api-smoke.sh       # smoke-test a REST API base URL
 ```
+
+Some skills also ship a helper script, e.g. `skills/api-tester/scripts/api-smoke.sh` (smoke-test a REST API base URL).
 
 ## Contributing
 
