@@ -1,6 +1,6 @@
 # Example sessions
 
-Four concrete sessions showing what these skills do in practice. Each one
+Five concrete sessions showing what these skills do in practice. Each one
 starts with a plain user request — the agent loads the matching skill itself.
 
 ---
@@ -119,3 +119,32 @@ Result: five findings, worst first, each with a concrete fix — not "this looks
 **Agent (loads `agent-memory` first):** reads `MEMORY.md`, finds the mono.ts lesson, and checks every link *except* mono.ts ones. The report marks the 5 mono.ts links `NEEDS-DEVICE-CHECK` and leaves them in place — the user never has to repeat the rule, and no working channel is deleted by mistake.
 
 Result: memory survives the session, the standing rule is applied without being restated, and nothing secret (no keys, no tokens) was ever written to the memory file.
+
+---
+
+## 5. E-commerce API — research, stack choice, plan, build, quality gate
+
+**User:**
+
+> Build me an e-commerce API: products, cart, orders, payments.
+
+**Agent — step 1 (loads `web-research`):** researches before writing any code — how Stripe/bKash-style payment flows verify orders server-side, what a minimal order state machine looks like (pending → paid → shipped → delivered), and which stacks teams actually run for small shops. Findings are cited with URLs, not guessed.
+
+**Agent — step 2 (loads `stack-architect`):** asks four questions (team size: 1 developer; traffic: hundreds of orders/day, not millions; budget: free hosting; deadline: 2 weeks) and writes `STACK_DECISION.md`:
+
+| Decision | Choice | Why |
+|---|---|---|
+| Stack | **PERN + Prisma** | Relational data (orders, stock) needs transactions; Prisma migrations are safe for one developer |
+| Architecture | **Layered + repository** | Routes → services → repositories; easy to test, easy to swap the payment provider later |
+| Auth | JWT access (15 min) + rotating refresh tokens | Same pattern as `pern-stack` |
+| Payments | Provider checkout, verified by webhook | Never trust a success-page redirect — an order is Paid only on a verified webhook event |
+| Rejected | Microservices | One developer, one deployable — microservices would triple the ops work for zero benefit |
+| Rejected | MongoDB | Stock decrements and order totals need ACID transactions, not embedded documents |
+
+**Agent — step 3 (loads `sdlc-planner`):** writes `PROJECT_PLAN.md` before coding — requirements (user stories + acceptance criteria), DB schema, API contract, milestones (auth → catalog → cart → orders → payments → deploy), test plan, deployment and rollback, risks (payment verification, stock races). The user reads the whole plan in one md file and approves it.
+
+**Agent — step 4 (loads `pern-stack`):** builds it — Prisma schema, migrations, JWT auth, validation, pagination, order creation inside a `$transaction` (create order + decrement stock atomically), webhook handler that marks orders Paid only after signature verification.
+
+**Agent — step 5 (loads `quality-gate`):** runs the gate — `code-reviewer` first for the review pass, `test-writer` first for the tests. Findings: one Critical (stock decrement outside the transaction — fixed, re-tested), two Medium (missing rate limit on login, no idempotency key on order creation — fixed). Tests: 42 unit + 11 integration + 6 e2e, all passing.
+
+**`QUALITY_REPORT.md` verdict: PASS** — 0 open Critical/High findings, all tests green, smoke test (register → add to cart → checkout → webhook → order Paid) verified end to end. Only then is the API handed over.
