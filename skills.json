@@ -1,1 +1,108 @@
-{"description":"12 production-ready Agent Skills for Claude Code, Codex, Cursor, Gemini CLI and OpenCode.","license":"MIT","name":"ai-agent-skills","skills":[{"description":"Use when hunting security bugs in code or a running app: OWASP Top 10, injection, broken auth, IDOR, SSRF and secrets. Triages findings by severity and gives a proof-of-concept and fix for each one.","name":"bug-hunter","path":"skills/bug-hunter"},{"description":"Use when reviewing code or a pull request for correctness, security, performance and readability. Produces actionable comments with severity labels and skips nitpicks.","name":"code-reviewer","path":"skills/code-reviewer"},{"description":"Use when running a full security audit of an app or repo: threat model, dependencies, secrets, headers, CORS, auth and data exposure, delivered as a findings report.","name":"security-audit","path":"skills/security-audit"},{"description":"Use when writing real tests: unit, integration and end-to-end, with edge cases, mocking and TDD flow, in Python (pytest) or JavaScript/TypeScript (vitest/jest).","name":"test-writer","path":"skills/test-writer"},{"description":"Use when verifying whether live m3u8 or DASH stream URLs are still playing, and distinguishing dead links from geo-blocked or tokenized ones. Never deletes a link on one sandbox failure alone.","name":"iptv-stream-check","path":"skills/iptv-stream-check"},{"description":"Use when writing natural Bangla: correct grammar, formal vs casual register, Banglish to Bangla transliteration, headlines and social posts without literal English translation.","name":"bangla-content","path":"skills/bangla-content"},{"description":"Use when training a small Bangla language model from scratch in PyTorch: BPE tokenizer, pretraining, SFT, LoRA and evaluation by loss and perplexity, including a tiny CPU demo.","name":"bangla-llm-train","path":"skills/bangla-llm-train"},{"description":"Use when downloading videos correctly: yt-dlp best practices, HLS/m3u8 download and ffmpeg concat, resume, quality picker, and only for content you have rights to.","name":"video-downloader","path":"skills/video-downloader"},{"description":"Use when making a repository go viral: English-first README, topics, demo video, release notes, launch post and a pre-publish checklist.","name":"github-viral","path":"skills/github-viral"},{"description":"Use when researching a topic on the web with verification: primary sources, cross-checking two or more sources, real citations, and never inventing facts.","name":"web-research","path":"skills/web-research"},{"description":"Use when testing a REST API: authentication, error cases, rate limits and contract checks, with a reproducible smoke-test script.","name":"api-tester","path":"skills/api-tester"},{"description":"Use when writing documentation: README, guides, API docs, Mermaid diagrams and changelogs, kept in sync with the code.","name":"docs-writer","path":"skills/docs-writer"}],"version":"1.0.0"}
+{
+  "description": "20 production-ready Agent Skills for Claude Code, Codex, Cursor, Gemini CLI and OpenCode.",
+  "license": "MIT",
+  "name": "ai-agent-skills",
+  "skills": [
+    {
+      "description": "Use when an agent needs persistent memory across sessions, including capturing decisions and facts, compressing long notes, indexing and retrieving relevant memory at session start, deciding what to remember versus forget, and keeping a MEMORY.md file private and free of secrets.",
+      "name": "agent-memory",
+      "path": "skills/agent-memory"
+    },
+    {
+      "description": "Use when the user asks to test, debug, verify, or document a REST API. It guides the agent to probe health and core endpoints with curl, check authentication and error cases, respect rate limits, validate responses against the API contract, and save a reproducible test script so the same checks can be re-run later.",
+      "name": "api-tester",
+      "path": "skills/api-tester"
+    },
+    {
+      "description": "Use when preparing an app for App Store or Google Play review, fixing a store rejection, writing a privacy policy or privacy manifest, choosing in-app purchase or payment flows, or auditing metadata, screenshots, and permissions before submitting a build.",
+      "name": "app-store-compliance",
+      "path": "skills/app-store-compliance"
+    },
+    {
+      "description": "Use when the user asks for Bangla writing, translation into Bangla, Bangla headlines, social media posts, scripts, or captions, including converting Banglish (Roman Bangla) to Bangla script and choosing formal versus casual register.",
+      "name": "bangla-content",
+      "path": "skills/bangla-content"
+    },
+    {
+      "description": "Use when training a small Bangla language model from scratch in PyTorch, including building a Bangla BPE tokenizer, pretraining a transformer, running supervised fine-tuning or LoRA, evaluating loss and perplexity, and producing a tiny CPU-runnable demo model.",
+      "name": "bangla-llm-train",
+      "path": "skills/bangla-llm-train"
+    },
+    {
+      "description": "Use when automating a browser with an agent, filling forms, clicking through a web flow, scraping a page that needs JavaScript, taking screenshots to verify a page, or testing a web app end to end with Playwright.",
+      "name": "browser-automation",
+      "path": "skills/browser-automation"
+    },
+    {
+      "description": "Use when hunting security bugs in a codebase, API, or web application, including OWASP Top 10 issues, authentication and authorization flaws, injection, SSRF, IDOR, and leaked secrets, and when a triaged finding with severity, proof-of-concept, and a fix suggestion is needed.",
+      "name": "bug-hunter",
+      "path": "skills/bug-hunter"
+    },
+    {
+      "description": "Use when reviewing a pull request, diff, or codebase for correctness, security, performance, and readability, and when actionable review comments with severity labels and concrete fixes are needed.",
+      "name": "code-reviewer",
+      "path": "skills/code-reviewer"
+    },
+    {
+      "description": "Use when deploying a web app without paying for hosting, choosing between Vercel, Cloudflare Pages, GitHub Pages, and Netlify, adding a serverless API or environment variables to a free deployment, connecting a custom domain, or debugging a failed free-tier deploy.",
+      "name": "deploy-free",
+      "path": "skills/deploy-free"
+    },
+    {
+      "description": "Use when a user asks for a diagram, chart, or visual explanation of a system, process, database, or flow, including Mermaid flowcharts, sequence diagrams, ER diagrams, state diagrams, and architecture diagrams, and when an existing diagram is cluttered, unreadable, or hard to follow.",
+      "name": "diagram-design",
+      "path": "skills/diagram-design"
+    },
+    {
+      "description": "Use when the user asks for documentation: a README, user guide, API reference, tutorial, changelog, or any written explanation of code or a product. It guides the agent to write clear, structured, example-led docs with diagrams and version notes, and to keep the docs in sync with the code they describe.",
+      "name": "docs-writer",
+      "path": "skills/docs-writer"
+    },
+    {
+      "description": "Use when working on several branches at the same time, running parallel tasks or agents in one repository, switching branches without stashing or losing uncommitted work, or cleaning up extra checkouts after a merge.",
+      "name": "git-worktree",
+      "path": "skills/git-worktree"
+    },
+    {
+      "description": "Use when preparing a GitHub repository to go viral, including writing an English-first README, choosing topics, recording a demo GIF or video, writing release notes, drafting a launch post, and running a pre-publish checklist before making the repo public.",
+      "name": "github-viral",
+      "path": "skills/github-viral"
+    },
+    {
+      "description": "Use when the user asks to verify live TV streams, IPTV playlists, or m3u8/DASH links, including checking whether a channel is live, dead, geo-blocked, or tokenized, and when cleaning up or adding channels to a playlist.",
+      "name": "iptv-stream-check",
+      "path": "skills/iptv-stream-check"
+    },
+    {
+      "description": "Use when building an MCP (Model Context Protocol) server from scratch, adding tools, resources, or prompts to an MCP server, choosing between stdio and HTTP transport, or testing an MCP server with a client such as Claude Code, Claude Desktop, or the MCP Inspector.",
+      "name": "mcp-builder",
+      "path": "skills/mcp-builder"
+    },
+    {
+      "description": "Use when running a full security audit of an application, service, or codebase, covering threat modelling, dependency and secrets checks, headers and CORS, authentication and sessions, and data exposure, and when a structured audit report with a findings table is needed.",
+      "name": "security-audit",
+      "path": "skills/security-audit"
+    },
+    {
+      "description": "Use when the user asks for tests, test coverage, TDD, or verification that code works, including unit, integration, and end-to-end tests for Python or JavaScript/TypeScript projects, and when a bug fix or new feature needs a failing test first and a passing test after.",
+      "name": "test-writer",
+      "path": "skills/test-writer"
+    },
+    {
+      "description": "Use when designing or reviewing a user interface, including landing pages, dashboards, forms, and mobile screens, and when an interface looks generic or AI-generated and needs specific typography, spacing, color, real content, accessibility, and mobile-first fixes.",
+      "name": "ui-design",
+      "path": "skills/ui-design"
+    },
+    {
+      "description": "Use when downloading videos correctly, including picking the best format and quality with yt-dlp, downloading and concatenating HLS/m3u8 streams with ffmpeg, resuming interrupted downloads, and handling playlists, subtitles, and audio extraction.",
+      "name": "video-downloader",
+      "path": "skills/video-downloader"
+    },
+    {
+      "description": "Use when the user asks for research, fact-checking, comparison, or current information from the web. It guides the agent to search broadly, open primary sources, cross-check claims against at least two independent sources, cite every factual claim with a URL, and distinguish live data from stale search-index copies.",
+      "name": "web-research",
+      "path": "skills/web-research"
+    }
+  ],
+  "version": "1.1.0"
+}
