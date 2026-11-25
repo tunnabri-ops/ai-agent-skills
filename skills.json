@@ -1,5 +1,5 @@
 {
-  "description": "20 production-ready Agent Skills for Claude Code, Codex, Cursor, Gemini CLI and OpenCode.",
+  "description": "30 production-ready Agent Skills for Claude Code, Codex, Cursor, Gemini CLI and OpenCode.",
   "license": "MIT",
   "name": "ai-agent-skills",
   "skills": [
@@ -59,6 +59,21 @@
       "path": "skills/docs-writer"
     },
     {
+      "description": "Use when building a production Electron desktop app with a secure main, renderer, and preload split, context isolation, IPC patterns, auto-updater, electron-builder packaging for Windows, macOS, and Linux, security hardening, testing, and distribution.",
+      "name": "electron-app",
+      "path": "skills/electron-app"
+    },
+    {
+      "description": "Use when building a production FastAPI backend in Python, including Pydantic v2 schemas, SQLAlchemy 2.0 or SQLModel models, Alembic migrations, JWT authentication, dependency injection, background tasks, OpenAPI documentation, pytest testing, Docker, and deployment.",
+      "name": "fastapi-stack",
+      "path": "skills/fastapi-stack"
+    },
+    {
+      "description": "Use when building a production Flutter app in Dart with clean architecture, Riverpod or Bloc state management, Dio networking, local storage, navigation, widget and integration tests, and Android and iOS builds ready for store submission.",
+      "name": "flutter-app",
+      "path": "skills/flutter-app"
+    },
+    {
       "description": "Use when working on several branches at the same time, running parallel tasks or agents in one repository, switching branches without stashing or losing uncommitted work, or cleaning up extra checkouts after a merge.",
       "name": "git-worktree",
       "path": "skills/git-worktree"
@@ -67,6 +82,11 @@
       "description": "Use when preparing a GitHub repository to go viral, including writing an English-first README, choosing topics, recording a demo GIF or video, writing release notes, drafting a launch post, and running a pre-publish checklist before making the repo public.",
       "name": "github-viral",
       "path": "skills/github-viral"
+    },
+    {
+      "description": "Use when building a production Go backend API or service with Gin or Fiber, PostgreSQL, JWT authentication, migrations, structured logging, graceful shutdown, table-driven tests, and a Docker multi-stage build.",
+      "name": "go-backend",
+      "path": "skills/go-backend"
     },
     {
       "description": "Use when the user asks to verify live TV streams, IPTV playlists, or m3u8/DASH links, including checking whether a channel is live, dead, geo-blocked, or tokenized, and when cleaning up or adding channels to a playlist.",
@@ -79,9 +99,39 @@
       "path": "skills/mcp-builder"
     },
     {
+      "description": "Use when building a production MERN application with MongoDB, Express, React, and Node.js, including project scaffolding, JWT authentication with refresh tokens, validation, pagination, file uploads, testing, and deployment to Vercel and Render or Railway.",
+      "name": "mern-stack",
+      "path": "skills/mern-stack"
+    },
+    {
+      "description": "Use when building, reviewing, or fixing a production NestJS backend API, including modules, controllers, services, TypeORM or Prisma data access, guards, interceptors, pipes, JWT authentication with role-based access control, request validation, Swagger documentation, Jest unit and end-to-end testing, and Docker deployment.",
+      "name": "nestjs-backend",
+      "path": "skills/nestjs-backend"
+    },
+    {
+      "description": "Use when building a production PERN application with PostgreSQL, Express, React, and Node.js using Prisma, including schema design, migrations, relations, transactions, indexing, connection pooling, JWT authentication, validation, pagination, file uploads, testing, and deployment.",
+      "name": "pern-stack",
+      "path": "skills/pern-stack"
+    },
+    {
+      "description": "Use when code must be reviewed and tested before delivery, when running a final quality gate, pre-release check, or acceptance review, or when deciding whether a change is safe to ship.",
+      "name": "quality-gate",
+      "path": "skills/quality-gate"
+    },
+    {
+      "description": "Use when planning a software project from start to finish, when the user asks for a project plan, roadmap, or timeline, or when work must be organised into research, requirements, design, implementation, testing, deployment, and maintenance phases.",
+      "name": "sdlc-planner",
+      "path": "skills/sdlc-planner"
+    },
+    {
       "description": "Use when running a full security audit of an application, service, or codebase, covering threat modelling, dependency and secrets checks, headers and CORS, authentication and sessions, and data exposure, and when a structured audit report with a findings table is needed.",
       "name": "security-audit",
       "path": "skills/security-audit"
+    },
+    {
+      "description": "Use when choosing a technology stack, framework, database, or software architecture for a new project, when comparing stacks or architectures, or when writing a stack decision document before coding starts.",
+      "name": "stack-architect",
+      "path": "skills/stack-architect"
     },
     {
       "description": "Use when the user asks for tests, test coverage, TDD, or verification that code works, including unit, integration, and end-to-end tests for Python or JavaScript/TypeScript projects, and when a bug fix or new feature needs a failing test first and a passing test after.",
@@ -104,5 +154,5 @@
       "path": "skills/web-research"
     }
   ],
-  "version": "1.1.0"
+  "version": "1.2.0"
 }
